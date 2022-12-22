@@ -2,6 +2,7 @@
 pragma solidity ^0.8.17;
 
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract Test is ChainlinkClient {
     using Chainlink for Chainlink.Request;
@@ -14,7 +15,7 @@ contract Test is ChainlinkClient {
         string ISIN;
     }
 
-    VanEck[] public data;
+    VanEck[] private data;
 
     uint256 private constant ORACLE_PAYMENT = (1 * LINK_DIVISIBILITY) / 10;
     uint private counter = 0;
@@ -24,14 +25,33 @@ contract Test is ChainlinkClient {
         owner = msg.sender;
     }
 
-    function requestData(address _oracle, string memory _jobId, string memory _id) external {
+    function getDataOf(uint _id) external view returns(
+        uint id,
+        string memory Holding_Name,
+        string memory Ticker,
+        string memory ISIN
+    ){
+        require(_id <= counter, "Enter a valid id");
+        VanEck memory _data = data[_id - 1];
+
+        return(
+            id = _data.id,
+            Holding_Name = _data.holdingName,
+            Ticker = _data.ticker,
+            ISIN = _data.ISIN
+        );
+    }
+
+    function requestData(address _oracle, string memory _jobId) external {
         require(msg.sender == owner, "Only callable by owner");
-
-        requestTicker(_oracle, _jobId, _id);
-        requestISIN(_oracle, _jobId, _id);
-        requestHoldingName(_oracle, _jobId, _id);
-
+        
         counter += 1;
+        string memory id = Strings.toString(counter);
+
+        requestTicker(_oracle, _jobId, id);
+        requestISIN(_oracle, _jobId, id);
+        requestHoldingName(_oracle, _jobId, id);
+
         VanEck memory _data = VanEck(counter, "", "", "");
 
         data.push(_data);
