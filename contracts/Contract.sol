@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract Test is ChainlinkClient {
     using Chainlink for Chainlink.Request;
-    address private immutable owner;
+    // address private immutable owner;
 
     struct VanEck {
         uint id;
@@ -22,7 +22,7 @@ contract Test is ChainlinkClient {
 
     constructor() {
         setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
-        owner = msg.sender;
+        // owner = msg.sender;
     }
 
     function getDataOf(uint _id) external view returns(
@@ -43,7 +43,7 @@ contract Test is ChainlinkClient {
     }
 
     function requestData(address _oracle, string memory _jobId) external {
-        require(msg.sender == owner, "Only callable by owner");
+        // require(msg.sender == owner, "Only callable by owner");
         
         counter += 1;
         string memory id = Strings.toString(counter);
@@ -65,6 +65,7 @@ contract Test is ChainlinkClient {
         );
 
         req.add("id", _id);
+        req.add("runid", _id);
         req.add("path", "data,Ticker");
         sendChainlinkRequestTo(_oracle, req, ORACLE_PAYMENT);
     }
@@ -77,6 +78,7 @@ contract Test is ChainlinkClient {
         );
 
         req.add("id", _id);
+        req.add("runid", _id);
         req.add("path", "data,ISIN");
         sendChainlinkRequestTo(_oracle, req, ORACLE_PAYMENT);
     }
@@ -89,21 +91,22 @@ contract Test is ChainlinkClient {
         );
 
         req.add("id", _id);
+        req.add("runid", _id);
         req.add("path", "data,Holding Name");
         sendChainlinkRequestTo(_oracle, req, ORACLE_PAYMENT);
     }
 
-    function fulfillTicker(bytes32 _requestID, string memory _ticker) external recordChainlinkFulfillment(_requestID) {
-        data[counter - 1].ticker = _ticker;
+    function fulfillTicker(bytes32 _requestID, string memory _ticker, uint _id) external recordChainlinkFulfillment(_requestID) {
+        data[_id - 1].ticker = _ticker;
     }
 
-    function fulfillISIN(bytes32 _requestID, string memory _ISIN) external recordChainlinkFulfillment(_requestID) {
-        data[counter - 1].ISIN = _ISIN;
+    function fulfillISIN(bytes32 _requestID, string memory _ISIN, uint _id) external recordChainlinkFulfillment(_requestID) {
+        data[_id - 1].ISIN = _ISIN;
     }
 
-    function fulfillHoldingName(bytes32 _requestID, string memory _holdingName) external
+    function fulfillHoldingName(bytes32 _requestID, string memory _holdingName, uint _id) external
         recordChainlinkFulfillment(_requestID) {
-            data[counter - 1].holdingName = _holdingName;
+            data[_id - 1].holdingName = _holdingName;
     }
 
     function stringToBytes32(string memory source) private pure returns (bytes32 result) {
