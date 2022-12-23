@@ -24,6 +24,7 @@ JobID: 323d160b7ba842178526ced8bf7e7ba6
 <h3>Solidity Example</h3>
 
 `req.add("id", <place_the_id_to_retrieve_data_of>);` <br />
+`req.add("id", <which_run>) /*Optional*/`<br />
 `req.add("path", "data,Ticker");`
 
 More Details
@@ -36,6 +37,7 @@ More Details
 <h3>Solidity Example</h3>
 
 `req.add("id", <place_the_id_to_retrieve_data_of>);` <br />
+`req.add("id", <which_run>) /*Optional*/`<br />
 `req.add("path", "data,ISIN");`
 
 More Details
@@ -48,6 +50,7 @@ More Details
 <h3>Solidity Example</h3>
 
 `req.add("id", <place_the_id_to_retrieve_data_of>);` <br />
+`req.add("id", <which_run>) /*Optional*/`<br />
 `req.add("path", "data,Holding Name");`
 
 More Details
@@ -60,6 +63,7 @@ More Details
 <h3>Solidity Example</h3>
 
 `req.add("id", <place_the_id_to_retrieve_data_of>);` <br />
+`req.add("id", <which_run>) /*Optional*/`<br />
 `req.add("path", "data,Shares");`
 
 More Details
