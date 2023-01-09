@@ -17,6 +17,7 @@ JobID: 323d160b7ba842178526ced8bf7e7ba6
 <h2>Request Parameters</h2>
 
 `Ticker`
+
 <ul>
     <li>Ticker: Description</li>
 </ul>
@@ -30,6 +31,7 @@ JobID: 323d160b7ba842178526ced8bf7e7ba6
 More Details
 
 `ISIN`
+
 <ul>
     <li>ISIN: Description</li>
 </ul>
@@ -43,6 +45,7 @@ More Details
 More Details
 
 `Holding Name`
+
 <ul>
     <li>Holding Name: Description</li>
 </ul>
@@ -56,6 +59,7 @@ More Details
 More Details
 
 `Shares`
+
 <ul>
     <li>Shares: Description</li>
 </ul>
@@ -65,5 +69,33 @@ More Details
 `req.add("id", <place_the_id_to_retrieve_data_of>);` <br />
 `req.add("id", <which_run>) /*Optional*/`<br />
 `req.add("path", "data,Shares");`
+
+More Details
+
+`Market Value`
+
+<ul>
+    <li>Market Value: Description</li>
+</ul>
+
+<h3>Solidity Example</h3>
+
+`req.add("id", <place_the_id_to_retrieve_data_of>);` <br />
+`req.add("id", <which_run>) /*Optional*/`<br />
+`req.add("path", "data,Market Value");`
+
+More Details
+
+`% of net assets`
+
+<ul>
+    <li>PerOfNetAssets: Description</li>
+</ul>
+
+<h3>Solidity Example</h3>
+
+`req.add("id", <place_the_id_to_retrieve_data_of>);` <br />
+`req.add("id", <which_run>) /*Optional*/`<br />
+`req.add("path", "data,% of Net Assets");`
 
 More Details
